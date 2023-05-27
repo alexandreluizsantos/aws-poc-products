@@ -1,11 +1,13 @@
+# Nome do Workflow
 name: Deploy
 
-on:
+# Evento que irá acionar a pipeline
+on: 
   push:
-    branches: [ "main" ]
-
-permissions:
-  contents: read
+    branches:
+      - main
+#permissions:
+#  contents: read
 
 jobs:
   EC2-Deploy:
