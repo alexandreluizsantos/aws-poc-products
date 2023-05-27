@@ -38,16 +38,15 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_SANDBOX }}
         aws-region: us-east-1
         
-    - name: Install AWS CLI
+    - name: Create DocumentDB instance
       run: |
-        sudo apt-get update
-        sudo apt-get install -y awscli
-        
-    - name: Connect to DocumentDB
-      run: |
-        aws docdb describe-db-instances --db-instance-identifier your-db-instance-id
-        
-    - name: Other DocumentDB tasks
-      run: |
-        # Perform other DocumentDB-related tasks using AWS CLI commands
-        
+          aws docdb create-db-instance \
+            --db-instance-identifier ${{ github.ref_name }} \
+            --db-instance-class db.t3.medium \
+            --engine docdb \
+            --master-username ${{ secrets.AWS_DB_MASTER_USER }} \
+            --master-user-password ${{ secrets.AWS_DB_MASTER_PASSWORD }} \
+            --vpc-security-group-ids ${{ secrets.AWS_SECURITY_GROUP_ID }} \
+            --availability-zone us-east-1a \
+            --preferred-maintenance-window sun:05:00-sun:05:30 \
+            --no-auto-minor-version-upgrade
