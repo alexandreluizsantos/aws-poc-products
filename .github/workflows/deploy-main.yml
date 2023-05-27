@@ -41,7 +41,7 @@ jobs:
     - name: Create DocumentDB instance
       run: |
           aws docdb create-db-instance \
-            ----db-cluster-identifier ${{ github.ref_name }} \
+            --db-cluster-identifier ${{ github.ref_name }} \
             --db-instance-identifier ${{ github.ref_name }} \
             --db-instance-class db.t3.medium \
             --engine docdb \
