@@ -1,11 +1,9 @@
-# Nome do Workflow
 name: Deploy
 
-# Evento que irá acionar a pipeline
-on: 
+on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+
 #permissions:
 #  contents: read
 
@@ -24,4 +22,3 @@ jobs:
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_SANDBOX }}
         aws_default_region: us-east-1
         app_port: 3000
-
