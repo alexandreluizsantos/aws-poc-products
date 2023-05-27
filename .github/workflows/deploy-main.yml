@@ -13,6 +13,7 @@ jobs:
     environment:
       name: ${{ github.ref_name }}
       url: ${{ steps.deploy.outputs.vm_url }}
+    env:
       DB_USERNAME: ${{ secrets.AWS_DB_MASTER_USER }}
       DB_PASSWORD: ${{ secrets.AWS_DB_MASTER_PASSWORD }}
       DB_HOSTNAME: ${{ secrets.AWS_DB_HOST}}
