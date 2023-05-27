@@ -6,44 +6,9 @@ on:
 
 permissions:
   contents: read
-  #secrets: write
 
 jobs:
-  Documentdb:
-    runs-on: ubuntu-latest
-        
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-        
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESSS_KEY_ID_SANDBOX }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_SANDBOX }}
-        aws-region: us-east-1
-
-    - name: Install AWS CLI
-      run: |
-          sudo apt-get update
-          sudo apt-get install -y awscli        
-
-    - name: Create DocumentDB instance
-      run: |
-          aws docdb create-db-instance \
-            --db-cluster-identifier ${{ github.ref_name }} \
-            --db-instance-identifier ${{ github.ref_name }} \
-            --db-instance-class db.t3.medium \
-            --engine docdb \
-            --master-username ${{ secrets.AWS_DB_MASTER_USER }} \
-            --master-user-password ${{ secrets.AWS_DB_MASTER_PASSWORD }} \
-            --vpc-security-group-ids ${{ secrets.AWS_SECURITY_GROUP_ID }} \
-            --availability-zone us-east-1a \
-            --preferred-maintenance-window sun:05:00-sun:05:30 \
-            --no-auto-minor-version-upgrade
-
   EC2-Deploy:
-    needs: Documentdb
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref_name }}
