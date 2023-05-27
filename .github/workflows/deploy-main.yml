@@ -9,21 +9,6 @@ permissions:
   #secrets: write
 
 jobs:
-  EC2-Deploy:
-    runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.ref_name }}
-      url: ${{ steps.deploy.outputs.vm_url }}
-    steps:
-    - id: deploy
-      name: Deploy Docker to AWS (EC2)
-      uses: bitovi/github-actions-deploy-docker-to-ec2@v0.4.2
-      with:
-        aws_access_key_id: ${{ secrets.AWS_ACCESSS_KEY_ID_SANDBOX }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_SANDBOX }}
-        aws_default_region: us-east-1
-        app_port: 3000
-
   Documentdb:
     runs-on: ubuntu-latest
         
@@ -51,3 +36,20 @@ jobs:
             --availability-zone us-east-1a \
             --preferred-maintenance-window sun:05:00-sun:05:30 \
             --no-auto-minor-version-upgrade
+
+  EC2-Deploy:
+    needs: Documentdb
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
+      url: ${{ steps.deploy.outputs.vm_url }}
+    steps:
+    - id: deploy
+      name: Deploy Docker to AWS (EC2)
+      uses: bitovi/github-actions-deploy-docker-to-ec2@v0.4.2
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESSS_KEY_ID_SANDBOX }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_SANDBOX }}
+        aws_default_region: us-east-1
+        app_port: 3000
+
