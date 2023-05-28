@@ -22,7 +22,7 @@ var client = MongoClient.connect(
   useNewUrlParser: true
 },
 
-
+/*
 function(err, client) {
     if(err)
         throw err;
@@ -44,4 +44,4 @@ function(err, client) {
       });
    });
 });
-                    
+*/                    
