@@ -12,6 +12,7 @@ app.listen( port, function (){
 });
 
 
+/*
 var MongoClient = require('mongodb').MongoClient;
                   
 //Create a MongoDB client, open a connection to Amazon DocumentDB as a replica set,
@@ -22,7 +23,7 @@ var client = MongoClient.connect(
   useNewUrlParser: true
 },
 
-/*
+
 function(err, client) {
     if(err)
         throw err;
