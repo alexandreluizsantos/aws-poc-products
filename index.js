@@ -8,6 +8,7 @@ app.get('/', function (req, res){
 
 app.listen( port, function (){
     console.log(`Listening on port ${port}!`);
+    console.log(`DB host: ${process.env.DB_HOSTNAME}`)
 });
 
 
@@ -20,6 +21,7 @@ var client = MongoClient.connect(
 { 
   useNewUrlParser: true
 },
+
 
 function(err, client) {
     if(err)
